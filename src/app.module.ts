@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StoresModule } from './stores/store.module';
 import { ProductsModule } from './products/products.module';
+import { CategoriesModule } from './categories/categories.module';
+import { SubcategoriesModule } from './subcategories/subcategories.module';
+import { TagsModule } from './tags/tags.module';
 import * as dotenv from 'dotenv';
 import path from 'path';
 
@@ -23,6 +26,9 @@ dotenv.config();
     }),
     StoresModule,
     ProductsModule,
+    CategoriesModule,
+    SubcategoriesModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

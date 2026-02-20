@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Product } from '../../products/entities/product.entity';
+import { Category } from '../../categories/entities/category.entity';
 
 @Entity({ name: 'stores' })
 export class Stores {
@@ -59,4 +60,11 @@ export class Stores {
   })
   @OneToMany(() => Product, (product) => product.store)
   products: Product[];
+
+  @ApiProperty({
+    description: 'List of categories in this store',
+    type: () => [Category],
+  })
+  @OneToMany(() => Category, (category) => category.store)
+  categories: Category[];
 }

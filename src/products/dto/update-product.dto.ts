@@ -6,6 +6,7 @@ import {
   IsNumber,
   IsPositive,
   IsOptional,
+  IsArray,
 } from 'class-validator';
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {
@@ -42,6 +43,24 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
   stock_quantity: number;
 
   @ApiProperty({
+    description: 'The ID of the category this product belongs to',
+    example: 1,
+    required: false,
+  })
+  @IsNumber()
+  @IsOptional()
+  category_id?: number;
+
+  @ApiProperty({
+    description: 'The ID of the subcategory this product belongs to',
+    example: 1,
+    required: false,
+  })
+  @IsNumber()
+  @IsOptional()
+  subcategory_id?: number;
+
+  @ApiProperty({
     description: 'URL or path to the product display image',
     example: 'https://example.com/product.jpg',
     required: false,
@@ -49,4 +68,14 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
   @IsString()
   @IsOptional()
   display_image?: string;
+
+  @ApiProperty({
+    description: 'Array of tag IDs to associate with this product',
+    example: [1, 2, 3],
+    required: false,
+    type: [Number],
+  })
+  @IsArray()
+  @IsOptional()
+  tag_ids?: number[];
 }

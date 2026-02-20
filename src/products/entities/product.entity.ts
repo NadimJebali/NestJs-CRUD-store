@@ -6,9 +6,14 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Stores } from '../../stores/entities/stores.entity';
+import { Tag } from '../../tags/entities/tag.entity';
+import { Category } from '../../categories/entities/category.entity';
+import { Subcategory } from '../../subcategories/entities/subcategory.entity';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -55,12 +60,44 @@ export class Product {
   store_id: number;
 
   @ApiProperty({
+    description: 'The ID of the category this product belongs to',
+    example: 1,
+    required: false,
+  })
+  @Column({ nullable: true })
+  category_id: number;
+
+  @ApiProperty({
+    description: 'The ID of the subcategory this product belongs to',
+    example: 1,
+    required: false,
+  })
+  @Column({ nullable: true })
+  subcategory_id: number;
+
+  @ApiProperty({
     description: 'The store that this product belongs to',
     type: () => Stores,
   })
   @ManyToOne(() => Stores, (store) => store.products)
   @JoinColumn({ name: 'store_id' })
   store: Stores;
+
+  @ApiProperty({
+    description: 'The category this product belongs to',
+    type: () => Category,
+  })
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
+
+  @ApiProperty({
+    description: 'The subcategory this product belongs to',
+    type: () => Subcategory,
+  })
+  @ManyToOne(() => Subcategory)
+  @JoinColumn({ name: 'subcategory_id' })
+  subcategory: Subcategory;
 
   @ApiProperty({
     description: 'The date when the product was created',
@@ -83,4 +120,16 @@ export class Product {
   })
   @Column({ nullable: true })
   display_image: string;
+
+  @ApiProperty({
+    description: 'The tags associated with this product',
+    type: () => [Tag],
+  })
+  @ManyToMany(() => Tag, (tag) => tag.products)
+  @JoinTable({
+    name: 'product_tags',
+    joinColumn: { name: 'product_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'tag_id', referencedColumnName: 'id' },
+  })
+  tags: Tag[];
 }

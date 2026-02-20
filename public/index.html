@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Shop Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Online Shop Dashboard</h1>
+      </header>
+
+      <nav class="tabs">
+        <button class="tab-btn active" onclick="showTab('stores')">
+          Stores
+        </button>
+        <button class="tab-btn" onclick="showTab('categories')">
+          Categories
+        </button>
+        <button class="tab-btn" onclick="showTab('subcategories')">
+          Subcategories
+        </button>
+        <button class="tab-btn" onclick="showTab('products')">Products</button>
+        <button class="tab-btn" onclick="showTab('tags')">Tags</button>
+      </nav>
+
+      <main>
+        <!-- Stores Tab -->
+        <div id="stores-tab" class="tab-content active">
+          <div class="section">
+            <h2>Create Store</h2>
+            <form id="store-form" class="form">
+              <input
+                type="text"
+                id="store-name"
+                placeholder="Store Name"
+                required
+              />
+              <input
+                type="text"
+                id="store-address"
+                placeholder="Address"
+                required
+              />
+              <textarea
+                id="store-description"
+                placeholder="Description"
+                required
+              ></textarea>
+              <button type="submit">Create Store</button>
+            </form>
+          </div>
+          <div class="section">
+            <h2>All Stores</h2>
+            <div id="stores-list" class="items-list"></div>
+          </div>
+        </div>
+
+        <!-- Categories Tab -->
+        <div id="categories-tab" class="tab-content">
+          <div class="section">
+            <h2>Create Category</h2>
+            <form id="category-form" class="form">
+              <input
+                type="text"
+                id="category-name"
+                placeholder="Category Name"
+                required
+              />
+              <textarea
+                id="category-description"
+                placeholder="Description"
+                required
+              ></textarea>
+              <select id="category-store">
+                <option value="">Select Store (Optional)</option>
+              </select>
+              <button type="submit">Create Category</button>
+            </form>
+          </div>
+          <div class="section">
+            <h2>All Categories</h2>
+            <div id="categories-list" class="items-list"></div>
+          </div>
+        </div>
+
+        <!-- Subcategories Tab -->
+        <div id="subcategories-tab" class="tab-content">
+          <div class="section">
+            <h2>Create Subcategory</h2>
+            <form id="subcategory-form" class="form">
+              <input
+                type="text"
+                id="subcategory-name"
+                placeholder="Subcategory Name"
+                required
+              />
+              <textarea
+                id="subcategory-description"
+                placeholder="Description"
+                required
+              ></textarea>
+              <select id="subcategory-category" required>
+                <option value="">Select Category</option>
+              </select>
+              <button type="submit">Create Subcategory</button>
+            </form>
+          </div>
+          <div class="section">
+            <h2>All Subcategories</h2>
+            <div id="subcategories-list" class="items-list"></div>
+          </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div id="products-tab" class="tab-content">
+          <div class="section">
+            <h2>Create Product</h2>
+            <form id="product-form" class="form">
+              <input
+                type="text"
+                id="product-name"
+                placeholder="Product Name"
+                required
+              />
+              <textarea
+                id="product-description"
+                placeholder="Description"
+                required
+              ></textarea>
+              <input
+                type="number"
+                id="product-price"
+                placeholder="Price"
+                step="0.01"
+                required
+              />
+              <input
+                type="number"
+                id="product-stock"
+                placeholder="Stock Quantity"
+                required
+              />
+              <input
+                type="text"
+                id="product-image"
+                placeholder="Image URL (optional)"
+              />
+              <select id="product-store" required>
+                <option value="">Select Store</option>
+              </select>
+              <select id="product-category">
+                <option value="">Select Category (Optional)</option>
+              </select>
+              <select id="product-subcategory">
+                <option value="">Select Subcategory (Optional)</option>
+              </select>
+              <div class="tags-selection">
+                <label>Tags (select multiple):</label>
+                <div id="product-tags-checkboxes"></div>
+              </div>
+              <button type="submit">Create Product</button>
+            </form>
+          </div>
+          <div class="section">
+            <h2>All Products</h2>
+            <div id="products-list" class="items-list"></div>
+          </div>
+        </div>
+
+        <!-- Tags Tab -->
+        <div id="tags-tab" class="tab-content">
+          <div class="section">
+            <h2>Create Tag</h2>
+            <form id="tag-form" class="form">
+              <input
+                type="text"
+                id="tag-name"
+                placeholder="Tag Name"
+                required
+              />
+              <button type="submit">Create Tag</button>
+            </form>
+          </div>
+          <div class="section">
+            <h2>All Tags</h2>
+            <div id="tags-list" class="items-list"></div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Store Detail Modal -->
+      <div id="store-modal" class="modal">
+        <div class="modal-content-large">
+          <span class="close" onclick="closeStoreModal()">&times;</span>
+          <h2 id="modal-store-name"></h2>
+          <div class="store-products-view">
+            <div class="filters-sidebar">
+              <div id="categories-display"></div>
+              <h3>Filters</h3>
+              <div id="tag-filters"></div>
+            </div>
+            <div class="products-grid">
+              <div id="store-products"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

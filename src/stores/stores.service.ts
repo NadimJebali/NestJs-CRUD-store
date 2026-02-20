@@ -18,14 +18,14 @@ export class StoresService {
 
   findAll() {
     return this.storesRepository.find({
-      relations: ['products'],
+      relations: ['products', 'products.tags', 'products.category', 'products.subcategory'],
     });
   }
 
   async findOne(id: number) {
     const store = await this.storesRepository.findOne({
       where: { id },
-      relations: ['products'],
+      relations: ['products', 'products.tags', 'products.category', 'products.subcategory'],
     });
     if (!store) {
       throw new Error('Store not found');
